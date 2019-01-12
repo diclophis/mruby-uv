@@ -39,6 +39,7 @@ MRuby::Gem::Specification.new('mruby-uv') do |spec|
           #_pp 'extracting', "libuv-#{version}"
           #run_command({}, "tar -zxf libuv-#{version}.tar.gz")
           run_command({}, "git clone git@github.com:diclophis/libuv.git #{libuv_dir}"
+          run_command({}, "cd #{libuv_dir} && git checkout v1.19-wkndr-patch-1 && git pull"
         end
       rescue => e
         p e
