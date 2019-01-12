@@ -19,6 +19,7 @@ MRuby::Gem::Specification.new('mruby-uv') do |spec|
     # version = '1.0.0'
     version = '1.19.1'
     libuv_dir = "#{build_dir}/libuv-#{version}"
+    #libuv_dir = "#{build_dir}/libuv"
     libuv_lib = libfile "#{libuv_dir}/.libs/libuv"
     header = "#{libuv_dir}/include/uv.h"
     objext = visualcpp ? '.obj' : '.o'
@@ -33,10 +34,11 @@ MRuby::Gem::Specification.new('mruby-uv') do |spec|
       begin
         FileUtils.mkdir_p build_dir
         Dir.chdir(build_dir) do
-          _pp 'getting', "libuv-#{version}"
-          run_command({}, "curl -L -o libuv-#{version}.tar.gz https://github.com/libuv/libuv/archive/v#{version}.tar.gz")
-          _pp 'extracting', "libuv-#{version}"
-          run_command({}, "tar -zxf libuv-#{version}.tar.gz")
+          #_pp 'getting', "libuv-#{version}"
+          #run_command({}, "curl -L -o libuv-#{version}.tar.gz https://github.com/libuv/libuv/archive/v#{version}.tar.gz")
+          #_pp 'extracting', "libuv-#{version}"
+          #run_command({}, "tar -zxf libuv-#{version}.tar.gz")
+          run_command({}, "git clone git@github.com:diclophis/libuv.git #{libuv_dir}"
         end
       rescue => e
         p e
@@ -93,7 +95,7 @@ MRuby::Gem::Specification.new('mruby-uv') do |spec|
   elsif (not cross? and `uname`.chomp =~ /darwin|freebsd/i) || (cross? && spec.build.host_target && spec.build.host_target.include?("darwin"))
     spec.linker.libraries << ['uv', 'pthread', 'm']
   else
-    spec.linker.libraries << ['uv', 'pthread', 'rt', 'm', 'dl']
+    spec.linker.libraries << ['uv', 'pthread', 'rt', 'm', 'dl', 'util']
   end
 
   if build.cc.respond_to? :search_header_path
