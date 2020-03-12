@@ -1789,6 +1789,7 @@ mrb_mruby_uv_gem_init(mrb_state* mrb) {
   MRB_SET_INSTANCE_TT(_class_uv_req, MRB_TT_DATA);
   mrb_define_method(mrb, _class_uv_req, "cancel", mrb_uv_cancel, MRB_ARGS_NONE());
   mrb_define_method(mrb, _class_uv_req, "type", mrb_uv_req_type, MRB_ARGS_NONE());
+  mrb_define_method(mrb, _class_uv_req, "uvtype", mrb_uv_req_type, MRB_ARGS_NONE());
   mrb_define_method(mrb, _class_uv_req, "type_name", mrb_uv_req_type_name, MRB_ARGS_NONE());
 #if MRB_UV_CHECK_VERSION(1, 19, 0)
   mrb_define_method(mrb, _class_uv_req, "path", mrb_uv_fs_req_path, MRB_ARGS_NONE());
